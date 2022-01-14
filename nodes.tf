@@ -1,6 +1,7 @@
-resource "aws_instance" "nodes" {
+resource "aws_spot_instance_request" "nodes_spot" {
 
-  count = var.nodes_size
+  count = var.nodes_size : 0
+  wait_for_fulfillment = true
 
   ami           = local.nodes_ami_id
   instance_type = var.nodes_instance_type
@@ -53,7 +54,9 @@ resource "aws_instance" "nodes" {
     var.tags,
     var.nodes_tags
   )
+
 }
+
 
 locals {
 
